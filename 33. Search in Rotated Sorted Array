@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int start = 0;
+        int end = nums.size() -1;    
+        
+        while (start <= end){
+            int mid = start + (end - start) / 2;
+            
+            if (nums[mid] == target)   //agar mid elements target k barabar aa jata hai too usko simply return krr denge usko mid elements ko
+                return mid;
+// agar mhi equal aata hai too usko if condition k aandar la k check krrenge ki woo array sorted hai ki unsorted hai issliye humlog phela nums ko start kiye if condtion mein or and operator laga k assumption 1 or 2 check kiye 
+            if (nums[start] <= nums[mid]){         // yeh humlog sorted k liye check krr rhe hai
+                if (nums[start] <= target && target <= nums[mid])
+                    end = mid -1;
+                    
+                    else 
+                        start = mid + 1;
+            }
+            
+            else {          // or ye unsorted k liye
+                if (nums[mid] <= target && target <= nums[end])
+                    start = mid + 1;
+                    
+                else 
+                    end = mid -1;
+            }
+        }
+        
+         return -1;       // agar koi index nhi mila tb -1 return krrenge 
+    }
+};
+
+/*  Assumption 1 -- Agar aak sorted nikal gya too dusra pakka unsorted hoga.
+  Assumption 2 -- Agar aak unsorted nikal gya too dusra pakka sorted hoga kyuki rotation aak hi barr ho rha hai
+
+example -- 4 5 6  7  0 1 2 3 -- kuch yaad aaya
+*/
