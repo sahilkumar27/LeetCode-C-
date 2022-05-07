@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int start = 0;
+        int end = nums.size() -1;
+        
+        while (start < end){        // Binary Search jo chota hai end se tb bhi ye loop chalega 
+            
+            int mid = start +(end - start) / 2;   //humlog aisee middle iss liye nikalte hai kyuki integer overflow na ho nhi too humlog simply (start + end)/2 krr sakte hai
+            
+            if (nums[mid] > nums[end])  // isme ye check krr rhe hai ki jo mera middle se greater hona chaiye last ka elements se firr usko mid element k baad wala element lenge 
+                start = mid + 1;
+            
+            else        // iska mtlb yeh hai ki (nums[mid] <= nums[end])
+                end = mid;   // End ko point krwa rhe hai middle elements ka index ko
+        }
+        
+        return nums[start];
+        
+    }
+};
+
+
+/*  Example -- 1 2 3 4 6 7 8 9 
+    after rotation -- 4 5 6 7 8 9 1 2 3     middle isme 8 ayega jo ki 4th index pe hai (starting index + End index) / 2
+    Digram socho or point kro graph k trha
+    
+*/
